@@ -1,0 +1,9 @@
+.main-wrapper {
+  display: flex;
+  height: 100vh;
+}
+@media (max-width: 640px) {
+  .main-wrapper {
+    flex-direction: column;
+  }
+}

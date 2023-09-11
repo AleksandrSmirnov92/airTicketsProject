@@ -1,0 +1,51 @@
+.sidebar-container {
+  width: 25%;
+  background-color: #d1d5db;
+}
+.sidebar-content {
+  display: block;
+  margin-top: 2em;
+  padding-bottom: 2em;
+  background-color: white;
+}
+.sidebar-filter-wrapper {
+  display: none;
+  margin: 0.5em 0;
+}
+.sidebar-filter {
+  color: white;
+  width: 2em;
+  height: 2em;
+}
+.sidebar-content__section {
+  padding-top: 2em;
+  padding-left: 1em;
+  /* padding-bottom: 2em; */
+}
+.sidebar-content__section h2 {
+  padding-bottom: 1em;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #4b5563;
+}
+.section-card span {
+  color: #64748b;
+}
+.section-card__form {
+  border: 0.06em solid black;
+  margin-left: 0.3em;
+  margin-bottom: 1em;
+}
+@media (max-width: 640px) {
+  .sidebar-container {
+    display: flex;
+    justify-content: end;
+    width: 100%;
+  }
+  .sidebar-content {
+    display: none;
+  }
+  .sidebar-filter-wrapper {
+    display: block;
+  }
+}

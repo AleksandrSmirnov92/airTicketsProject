@@ -1,0 +1,28 @@
+.section-container {
+  display: flex;
+  flex-direction: column;
+}
+.section-header {
+  padding: 0.5em 0.8em;
+  display: flex;
+  justify-content: space-between;
+  background-color: #0284c7;
+}
+.section-header__logo {
+  align-self: center;
+  color: white;
+}
+.section-header__cost {
+  display: flex;
+  flex-direction: column;
+  text-align: end;
+  color: white;
+}
+.section-header__cost-price {
+  font-size: 1.5rem;
+  font-weight: 500;
+}
+.section-content {
+  display: flex;
+  flex-direction: column;
+}
