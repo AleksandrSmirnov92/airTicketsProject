@@ -12,10 +12,10 @@ const SectionCard = () => {
             <HiOutlineArrowNarrowRight className={style["card-text__arrow"]} />
           </span>
           ЛОНДОН, Лондон, Хитроу
-          <span className={style["card-subtext"]}>(SVO)</span>
+          <span className={style["card-subtext"]}>(LHR)</span>
         </span>
       </div>
-      <div className={style["card-segments"]}>
+      <div className={style["card-segment-two"]}>
         <div className={style["card-l-segment"]}>
           <span className={style["card-l-segment__text"]}>20:40</span>
           <span className={style["card-l-segment__subtext"]}>18 авг. вт</span>
@@ -29,8 +29,14 @@ const SectionCard = () => {
           <span className={style["card-r-segment__text"]}>20:40</span>
         </div>
       </div>
-      <div>3</div>
-      <div>4</div>
+      <div className={style["card-segment-three"]}>
+        <div></div>
+        <span>1 пересадка</span>
+        <div></div>
+      </div>
+      <div className={style["card-segment-four"]}>
+        <span>Рейс выполняет LOT Polish Airlines</span>
+      </div>
     </div>
   );
 };

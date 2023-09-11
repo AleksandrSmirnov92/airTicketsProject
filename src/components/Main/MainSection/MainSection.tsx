@@ -14,7 +14,12 @@ const Section = () => {
       </div>
       <div className={style["section-content"]}>
         <SectionCard />
+        <div className={style["section-content__separator"]}></div>
+        <SectionCard />
       </div>
+      <button className={style["section-btn"]}>
+        <span>ВЫБРАТЬ</span>
+      </button>
     </div>
   );
 };
