@@ -28,6 +28,9 @@
   font-weight: 600;
   color: #4b5563;
 }
+.section-card input {
+  cursor: pointer;
+}
 .section-card span {
   color: #64748b;
 }

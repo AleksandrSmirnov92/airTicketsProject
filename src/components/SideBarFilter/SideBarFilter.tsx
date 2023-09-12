@@ -1,6 +1,13 @@
 import style from "./SideBarFilter.module.css";
 import { BsFilterRight } from "react-icons/bs";
-const SideBarFilter = () => {
+interface SideBarProps {
+  sortPrice: React.Dispatch<React.SetStateAction<string>>;
+  setFilterTransfer: React.Dispatch<React.SetStateAction<string>>;
+}
+const SideBarFilter: React.FC<SideBarProps> = ({
+  sortPrice,
+  setFilterTransfer,
+}) => {
   return (
     <div className={style["sidebar-container"]}>
       <div className={style["sidebar-filter-wrapper"]}>
@@ -10,25 +17,56 @@ const SideBarFilter = () => {
         <div className={style["sidebar-content__section"]}>
           <h2>Сортировать</h2>
           <div className={style["section-card"]}>
-            <input type="radio" /> <span> - По возростанию цены</span>
+            <input
+              name="FilterPrice"
+              type="radio"
+              value={"PriceIncrease"}
+              defaultChecked
+              onChange={(e) => {
+                sortPrice(e.target.value);
+              }}
+            />
+            <span> - По возростанию цены</span>
           </div>
           <div className={style["section-card"]}>
-            <input type="radio" />
+            <input
+              name="FilterPrice"
+              type="radio"
+              value={"PriceDecreasing"}
+              onChange={(e) => {
+                sortPrice(e.target.value);
+              }}
+            />
             <span> - По убыванию цены</span>
           </div>
           <div className={style["section-card"]}>
-            <input type="radio" />
+            <input
+              name="FilterPrice"
+              type="radio"
+              value={"TravelTime"}
+              onChange={(e) => {
+                sortPrice(e.target.value);
+              }}
+            />
             <span> - По времени пути</span>
           </div>
         </div>
         <div className={style["sidebar-content__section"]}>
           <h2>Фильтровать</h2>
           <div className={style["section-card"]}>
-            <input type="checkbox" />
+            <input
+              type="checkbox"
+              value={"one"}
+              onChange={(e) => setFilterTransfer(e.target.value)}
+            />
             <span> - Одна пересадка</span>
           </div>
           <div className={style["section-card"]}>
-            <input type="checkbox" />
+            <input
+              type="checkbox"
+              value={"two"}
+              onChange={(e) => setFilterTransfer(e.target.value)}
+            />
             <span> - Две пересадки</span>
           </div>
         </div>

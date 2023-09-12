@@ -28,10 +28,13 @@
 }
 .section-btn {
   background-color: #fb923c;
-
+  margin-bottom: 2em;
   width: 100%;
   padding-top: 1em;
   padding-bottom: 1em;
+}
+.section-btn:hover {
+  opacity: 0.8;
 }
 .section-btn > span {
   color: white;
