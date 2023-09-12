@@ -1,3 +1,4 @@
+export interface Data {}
 export interface Flights {
   priceSinglePassengerTotal: {
     amount: string;

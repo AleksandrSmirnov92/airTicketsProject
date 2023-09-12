@@ -12,9 +12,9 @@ function App() {
   sortFlights(flights, sortPrice);
   filterFlights(flights, filterTransfer);
   useEffect(() => {
-    const data = dataFlights.result;
-    const newDataFlights: Flights[] = data.flights.map((item: any) => {
-      console.log(item.flight.legs[1].segments);
+    const data = dataFlights;
+    console.log(data);
+    const newDataFlights: Flights[] = data.result.flights.map((item: any) => {
       return {
         transfer: {
           where: item.flight.legs[1].segments.length,
