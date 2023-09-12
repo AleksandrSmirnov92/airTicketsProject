@@ -14,12 +14,13 @@ function App() {
   useEffect(() => {
     const data = dataFlights.result;
     const newDataFlights: Flights[] = data.flights.map((item: any) => {
+      console.log(item.flight.legs[1].segments);
       return {
         transfer: {
           where: item.flight.legs[1].segments.length,
           back: item.flight.legs[1].segments.length,
         },
-        caption: item.flight.carrier.caption,
+
         priceSinglePassengerTotal: {
           amount: Math.round(
             Number(
@@ -40,6 +41,10 @@ function App() {
         },
         where: {
           arrival: {
+            caption:
+              item.flight.legs[0].segments.length > 1
+                ? item.flight.legs[0].segments[1].airline.caption
+                : item.flight.legs[0].segments[0].airline.caption,
             arrivalAirPort: {
               uid: item.flight.legs[0].segments[0].arrivalAirport.uid,
               caption: item.flight.legs[0].segments[0].arrivalAirport.caption,
@@ -51,25 +56,17 @@ function App() {
             arrivalDate: item.flight.legs[0].segments[0].arrivalDate,
           },
           departure: {
+            caption:
+              item.flight.legs[0].segments.length > 1
+                ? item.flight.legs[0].segments[1].airline.caption
+                : item.flight.legs[0].segments[0].airline.caption,
             departureAirport: {
-              uid:
-                item.flight.legs[0].segments.length > 1
-                  ? item.flight.legs[0].segments[1].departureAirport.uid
-                  : item.flight.legs[0].segments[0].departureAirport.uid,
-              caption:
-                item.flight.legs[0].segments.length > 1
-                  ? item.flight.legs[0].segments[1].departureAirport.caption
-                  : item.flight.legs[0].segments[0].departureAirport.caption,
+              uid: item.flight.legs[0].segments[0].departureAirport.uid,
+              caption: item.flight.legs[0].segments[0].departureAirport.caption,
             },
             departureCity: {
-              uid:
-                item.flight.legs[0].segments.length > 1
-                  ? item.flight.legs[0].segments[1].departureCity.uid
-                  : item.flight.legs[0].segments[0].departureCity.uid,
-              caption:
-                item.flight.legs[0].segments.length > 1
-                  ? item.flight.legs[0].segments[1].departureCity.caption
-                  : item.flight.legs[0].segments[0].departureCity.caption,
+              uid: item.flight.legs[0].segments[0].departureCity.uid,
+              caption: item.flight.legs[0].segments[0].departureCity.caption,
             },
             departureDate:
               item.flight.legs[0].segments.length > 1
@@ -80,6 +77,10 @@ function App() {
         // back
         back: {
           arrival: {
+            caption:
+              item.flight.legs[1].segments.length > 1
+                ? item.flight.legs[1].segments[1].airline.caption
+                : item.flight.legs[1].segments[0].airline.caption,
             arrivalAirPort: {
               uid:
                 item.flight.legs[1].segments.length > 1
@@ -106,30 +107,34 @@ function App() {
                 : item.flight.legs[1].segments[0].arrivalDate,
           },
           departure: {
+            caption:
+              item.flight.legs[1].segments.length > 1
+                ? item.flight.legs[1].segments[1].airline.caption
+                : item.flight.legs[1].segments[0].airline.caption,
             departureAirport: {
               uid:
-                item.flight.legs[0].segments.length > 1
-                  ? item.flight.legs[0].segments[1].departureAirport.uid
-                  : item.flight.legs[0].segments[0].departureAirport.uid,
+                item.flight.legs[1].segments.length > 1
+                  ? item.flight.legs[1].segments[1].departureAirport.uid
+                  : item.flight.legs[1].segments[0].departureAirport.uid,
               caption:
-                item.flight.legs[0].segments.length > 1
-                  ? item.flight.legs[0].segments[1].departureAirport.caption
-                  : item.flight.legs[0].segments[0].departureAirport.caption,
+                item.flight.legs[1].segments.length > 1
+                  ? item.flight.legs[1].segments[1].departureAirport.caption
+                  : item.flight.legs[1].segments[0].departureAirport.caption,
             },
             departureCity: {
               uid:
-                item.flight.legs[0].segments.length > 1
-                  ? item.flight.legs[0].segments[1].departureCity.uid
-                  : item.flight.legs[0].segments[0].departureCity.uid,
+                item.flight.legs[1].segments.length > 1
+                  ? item.flight.legs[1].segments[1].departureCity.uid
+                  : item.flight.legs[1].segments[0].departureCity.uid,
               caption:
-                item.flight.legs[0].segments.length > 1
-                  ? item.flight.legs[0].segments[1].departureCity.caption
-                  : item.flight.legs[0].segments[0].departureCity.caption,
+                item.flight.legs[1].segments.length > 1
+                  ? item.flight.legs[1].segments[1].departureCity.caption
+                  : item.flight.legs[1].segments[0].departureCity.caption,
             },
-            departueDate:
-              item.flight.legs[0].segments.length > 1
-                ? item.flight.legs[0].segments[1].departureDate
-                : item.flight.legs[0].segments[0].departureDate,
+            departureDate:
+              item.flight.legs[1].segments.length > 1
+                ? item.flight.legs[1].segments[1].departureDate
+                : item.flight.legs[1].segments[0].departureDate,
           },
         },
       };

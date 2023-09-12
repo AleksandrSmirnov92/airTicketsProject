@@ -1,5 +1,4 @@
 export interface Flights {
-  caption: string;
   priceSinglePassengerTotal: {
     amount: string;
     currency: string;
@@ -8,11 +7,13 @@ export interface Flights {
   duration: { where: number; back: number; totalTime: number };
   where: {
     arrival: {
+      caption: string;
       arrivalAirPort: { uid: string; caption: string };
       arrivalCity: { uid: string; caption: string };
       arrivalDate: string;
     };
     departure: {
+      caption: string;
       departureAirport: { uid: string; caption: string };
       departureCity: { uid: string; caption: string };
       departureDate: string;
@@ -20,11 +21,13 @@ export interface Flights {
   };
   back: {
     arrival: {
+      caption: string;
       arrivalAirPort: { uid: string; caption: string };
       arrivalCity: { uid: string; caption: string };
       arrivalDate: string;
     };
     departure: {
+      caption: string;
       departureAirport: { uid: string; caption: string };
       departureCity: { uid: string; caption: string };
       departureDate: string;

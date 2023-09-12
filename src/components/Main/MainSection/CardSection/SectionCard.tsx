@@ -11,14 +11,22 @@ interface SectionProps {
     arrivalDate: string;
   };
   whereDeparture: {
+    caption: string;
     departureAirport: { uid: string; caption: string };
     departureCity: { uid: string; caption: string };
     departureDate: string;
   };
   backArrive: {
+    caption: string;
     arrivalAirPort: { uid: string; caption: string };
     arrivalCity: { uid: string; caption: string };
     arrivalDate: string;
+  };
+  backDeparture: {
+    caption: string;
+    departureAirport: { uid: string; caption: string };
+    departureCity: { uid: string; caption: string };
+    departureDate: string;
   };
   transfer: { where: number; back: number };
 }
@@ -29,21 +37,28 @@ const SectionCard: React.FC<SectionProps> = ({
   arrivalFlag,
   transfer,
   whereDeparture,
+  backDeparture,
 }) => {
   const dateArrive = new Date(
     arrivalFlag ? whereArrive!.arrivalDate : backArrive.arrivalDate
   );
   const dateDepature = new Date(
-    arrivalFlag ? whereDeparture!.departureDate : ""
+    arrivalFlag ? whereDeparture!.departureDate : backDeparture.departureDate
   );
 
   return (
     <div className={style["card-container"]}>
       <div className={style["card"]}>
         <span className={style["card-text"]}>
-          Москва, ШЕРЕМЕТЬЕВО
+          {arrivalFlag
+            ? `${whereDeparture.departureCity.caption}, ${whereDeparture.departureAirport.caption}`
+            : `${backDeparture.departureCity.caption}, ${backDeparture.departureAirport.caption}`}
           <span className={style["card-subtext"]}>
-            (SVO)
+            (
+            {arrivalFlag
+              ? whereDeparture.departureAirport.uid
+              : whereDeparture.departureAirport.uid}
+            )
             <HiOutlineArrowNarrowRight className={style["card-text__arrow"]} />
           </span>
           {arrivalFlag
@@ -90,15 +105,28 @@ const SectionCard: React.FC<SectionProps> = ({
       </div>
       <div className={style["card-segment-three"]}>
         <div></div>
-        <span>
-          {arrivalFlag
-            ? `${transfer.where - 1} пересадка`
-            : `${transfer.back - 1} пересадка`}
-        </span>
+        {arrivalFlag ? (
+          transfer.where - 1 !== 0 ? (
+            <span>{`${transfer.where - 1} пересадка`}</span>
+          ) : (
+            <span className={style["card-segment-three-transfer"]}>{`${
+              transfer.where - 1
+            } пересадка`}</span>
+          )
+        ) : transfer.back - 1 !== 0 ? (
+          <span>{`${transfer.back - 1} пересадка`}</span>
+        ) : (
+          <span className={style["card-segment-three-transfer"]}>{`${
+            transfer.back - 1
+          } пересадка`}</span>
+        )}
         <div></div>
       </div>
       <div className={style["card-segment-four"]}>
-        <span>Рейс выполняет LOT Polish Airlines</span>
+        <span>
+          Рейс выполняет
+          {arrivalFlag ? whereDeparture.caption : backArrive.caption}
+        </span>
       </div>
     </div>
   );

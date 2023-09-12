@@ -30,6 +30,7 @@ const Section: React.FC<SectionProps> = ({ flights }) => {
                 whereArrive={item.where.arrival}
                 whereDeparture={item.where.departure}
                 backArrive={item.back.arrival}
+                backDeparture={item.back.departure}
                 transfer={item.transfer}
               />
               <div className={style["section-content__separator"]}></div>
@@ -38,6 +39,7 @@ const Section: React.FC<SectionProps> = ({ flights }) => {
                 whereArrive={item.where.arrival}
                 whereDeparture={item.where.departure}
                 backArrive={item.back.arrival}
+                backDeparture={item.back.departure}
                 durationTime={item.duration.back}
                 transfer={item.transfer}
               />

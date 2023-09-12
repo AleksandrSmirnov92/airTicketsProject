@@ -78,6 +78,9 @@
   display: flex;
   justify-content: center;
 }
+.card-segment-three-transfer {
+  display: none;
+}
 .card-segment-three div {
   align-self: center;
   width: 38%;
