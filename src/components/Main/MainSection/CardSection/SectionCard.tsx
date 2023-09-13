@@ -1,73 +1,73 @@
 import style from "./SectionCard.module.css";
 import { HiOutlineArrowNarrowRight } from "react-icons/hi";
 import { BiTimeFive } from "react-icons/bi";
-import { minutesToHours, formattedDate } from "../../../../helpers/sortFlights";
+import { minutesToHours, formattedDate } from "../../../../helpers/handleDate";
 interface SectionProps {
-  durationTime: number;
-  arrivalFlag: boolean;
-  whereArrive: {
-    arrivalAirPort: { uid: string; caption: string };
-    arrivalCity: { uid: string; caption: string };
-    arrivalDate: string;
-  };
-  whereDeparture: {
-    caption: string;
+  flightDuration: number;
+  forthOrBack: boolean;
+  forthDeparture: {
+    airline: string;
     departureAirport: { uid: string; caption: string };
     departureCity: { uid: string; caption: string };
     departureDate: string;
   };
-  backArrive: {
-    caption: string;
+  forthArrive: {
     arrivalAirPort: { uid: string; caption: string };
     arrivalCity: { uid: string; caption: string };
     arrivalDate: string;
   };
   backDeparture: {
-    caption: string;
+    airline: string;
     departureAirport: { uid: string; caption: string };
     departureCity: { uid: string; caption: string };
     departureDate: string;
   };
-  transfer: { where: number; back: number };
+  backArrive: {
+    arrivalAirPort: { uid: string; caption: string };
+    arrivalCity: { uid: string; caption: string };
+    arrivalDate: string;
+  };
+
+  transfer: { forth: number; back: number };
 }
 const SectionCard: React.FC<SectionProps> = ({
-  durationTime,
-  whereArrive,
+  flightDuration,
+  forthArrive,
   backArrive,
-  arrivalFlag,
+  forthOrBack,
   transfer,
-  whereDeparture,
+  forthDeparture,
   backDeparture,
 }) => {
   const dateArrive = new Date(
-    arrivalFlag ? whereArrive!.arrivalDate : backArrive.arrivalDate
+    forthOrBack ? forthArrive!.arrivalDate : backArrive.arrivalDate
   );
   const dateDepature = new Date(
-    arrivalFlag ? whereDeparture!.departureDate : backDeparture.departureDate
+    forthOrBack ? forthDeparture!.departureDate : backDeparture.departureDate
   );
 
   return (
     <div className={style["card-container"]}>
       <div className={style["card"]}>
         <span className={style["card-text"]}>
-          {arrivalFlag
-            ? `${whereDeparture.departureCity.caption}, ${whereDeparture.departureAirport.caption}`
+          {forthOrBack
+            ? `${forthDeparture.departureCity.caption}, ${forthDeparture.departureAirport.caption}`
             : `${backDeparture.departureCity.caption}, ${backDeparture.departureAirport.caption}`}
           <span className={style["card-subtext"]}>
             (
-            {arrivalFlag
-              ? whereDeparture.departureAirport.uid
-              : whereDeparture.departureAirport.uid}
+            {forthOrBack
+              ? forthDeparture.departureAirport.uid
+              : forthDeparture.departureAirport.uid}
             )
             <HiOutlineArrowNarrowRight className={style["card-text__arrow"]} />
           </span>
-          {arrivalFlag
-            ? `${whereArrive?.arrivalCity.caption}, ${whereArrive.arrivalAirPort.caption}`
+          {forthOrBack
+            ? `${forthArrive?.arrivalCity.caption}, ${forthArrive.arrivalAirPort.caption}`
             : `${backArrive.arrivalCity.caption}, ${backArrive.arrivalAirPort.caption}`}
           <span className={style["card-subtext"]}>
             (
-            {arrivalFlag
-              ? whereArrive.arrivalAirPort.uid
+            {forthOrBack
+              ? forthArrive.arrivalAirPort.uid
               : backArrive.arrivalAirPort.uid}
             )
           </span>
@@ -88,7 +88,7 @@ const SectionCard: React.FC<SectionProps> = ({
         </div>
         <div className={style["card-c-segment"]}>
           <BiTimeFive className={style["card-c-segment__watch"]} />
-          <span>{minutesToHours(durationTime)}</span>
+          <span>{minutesToHours(flightDuration)}</span>
         </div>
         <div className={style["card-r-segment"]}>
           <span className={style["card-r-segment__subtext"]}>
@@ -105,27 +105,23 @@ const SectionCard: React.FC<SectionProps> = ({
       </div>
       <div className={style["card-segment-three"]}>
         <div></div>
-        {arrivalFlag ? (
-          transfer.where - 1 !== 0 ? (
-            <span>{`${transfer.where - 1} пересадка`}</span>
+        {forthOrBack ? (
+          transfer.forth - 1 !== 0 ? (
+            <span>{`${transfer.forth - 1} пересадка`}</span>
           ) : (
-            <span className={style["card-segment-three-transfer"]}>{`${
-              transfer.where - 1
-            } пересадка`}</span>
+            ""
           )
         ) : transfer.back - 1 !== 0 ? (
           <span>{`${transfer.back - 1} пересадка`}</span>
         ) : (
-          <span className={style["card-segment-three-transfer"]}>{`${
-            transfer.back - 1
-          } пересадка`}</span>
+          ""
         )}
         <div></div>
       </div>
       <div className={style["card-segment-four"]}>
         <span>
-          Рейс выполняет
-          {arrivalFlag ? whereDeparture.caption : backArrive.caption}
+          Рейс выполняет{" "}
+          {forthOrBack ? forthDeparture.airline : backDeparture.airline}
         </span>
       </div>
     </div>

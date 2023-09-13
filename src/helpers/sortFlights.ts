@@ -1,5 +1,5 @@
 import { Flights } from "../types/index";
-export const sortFlights = (flights: Flights[], sortPrice: string) => {
+const sortFlights = (flights: Flights[], sortPrice: string) => {
   if (sortPrice === "PriceDecreasing") {
     return flights.sort(
       (a: Flights, b: Flights): number =>
@@ -10,7 +10,7 @@ export const sortFlights = (flights: Flights[], sortPrice: string) => {
   if (sortPrice === "TravelTime") {
     return flights.sort(
       (a: Flights, b: Flights): number =>
-        a.duration.totalTime - b.duration.totalTime
+        a.flightDuration.totalTime - b.flightDuration.totalTime
     );
   }
   return flights.sort(
@@ -19,45 +19,41 @@ export const sortFlights = (flights: Flights[], sortPrice: string) => {
       Number(a.priceSinglePassengerTotal.amount)
   );
 };
-export const filterFlights = (flights: Flights[], filterTransfer: string) => {
-  if (filterTransfer === "one") {
-    console.log("one");
-  }
-  if (filterTransfer === "two") {
-    console.log("two");
-  }
-  return flights;
-};
-export const minutesToHours = (minutes: number) => {
-  const hours = Math.floor(minutes / 60);
-  const remainingMinutes = minutes % 60;
+export const filterFlights = (
+  flights: Flights[],
+  filterTransfer: string,
+  sortPrice: string,
+  filterAirline: string
+) => {
+  let results = sortFlights(flights, sortPrice);
 
-  if (hours === 0) {
-    return `${remainingMinutes} минут`;
-  } else if (remainingMinutes === 0) {
-    return `${hours} ч`;
-  } else {
-    return `${hours} ч ${remainingMinutes} мин`;
+  if (filterTransfer !== "none") {
+    if (filterTransfer === "first") {
+      const result = flights.filter(
+        (item: Flights) => 1 * (item.transfer.forth + item.transfer.back) === 3
+      );
+      results = result;
+    }
+    if (filterTransfer === "second") {
+      const result = flights.filter(
+        (item: Flights) => 1 * (item.transfer.forth + item.transfer.back) === 4
+      );
+      results = result;
+    }
   }
-};
-export const formattedDate = (date: Date) => {
-  const daysOfWeek = ["вс", "пн", "вт", "ср", "чт", "пт", "сб"];
-  const dayOfWeek = daysOfWeek[date.getDay()];
-  const months = [
-    "янв",
-    "фев",
-    "мар",
-    "апр",
-    "май",
-    "июн",
-    "июл",
-    "авг",
-    "сен",
-    "окт",
-    "ноя",
-    "дек",
-  ];
-  const month = months[date.getMonth()];
-  const dayOfMonth = date.getDate();
-  return dayOfMonth + " " + month + ". " + dayOfWeek;
+  if (filterAirline !== "none") {
+    if (filterAirline === "firstAirline") {
+      const result = flights.filter(
+        (item: Flights) => item.airline === "LOT Polish Airlines"
+      );
+      results = result;
+    }
+    if (filterAirline === "secondAirline") {
+      const result = flights.filter(
+        (item: Flights) => item.airline === "Аэрофлот - российские авиалинии"
+      );
+      results = result;
+    }
+  }
+  return results;
 };

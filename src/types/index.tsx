@@ -1,41 +1,40 @@
 export interface Data {}
 export interface Flights {
+  airline: string;
   priceSinglePassengerTotal: {
     amount: string;
     currency: string;
     currencyCode: string;
   };
-  duration: { where: number; back: number; totalTime: number };
-  where: {
-    arrival: {
-      caption: string;
-      arrivalAirPort: { uid: string; caption: string };
-      arrivalCity: { uid: string; caption: string };
-      arrivalDate: string;
-    };
-    departure: {
-      caption: string;
+  flightDuration: { forth: number; back: number; totalTime: number };
+  forth: {
+    departureInfo: {
+      airline: string;
       departureAirport: { uid: string; caption: string };
       departureCity: { uid: string; caption: string };
       departureDate: string;
+    };
+    arrivalInfo: {
+      arrivalAirPort: { uid: string; caption: string };
+      arrivalCity: { uid: string; caption: string };
+      arrivalDate: string;
     };
   };
   back: {
-    arrival: {
-      caption: string;
-      arrivalAirPort: { uid: string; caption: string };
-      arrivalCity: { uid: string; caption: string };
-      arrivalDate: string;
-    };
-    departure: {
-      caption: string;
+    departureInfo: {
+      airline: string;
       departureAirport: { uid: string; caption: string };
       departureCity: { uid: string; caption: string };
       departureDate: string;
     };
+    arrivalInfo: {
+      arrivalAirPort: { uid: string; caption: string };
+      arrivalCity: { uid: string; caption: string };
+      arrivalDate: string;
+    };
   };
   transfer: {
-    where: number;
+    forth: number;
     back: number;
   };
   // transfer: string;

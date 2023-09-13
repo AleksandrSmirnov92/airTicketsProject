@@ -35,6 +35,7 @@
   color: #64748b;
 }
 .section-card__form {
+  width: 90%;
   border: 0.06em solid black;
   margin-left: 0.3em;
   margin-bottom: 1em;

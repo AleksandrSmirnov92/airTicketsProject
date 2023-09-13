@@ -4,23 +4,23 @@ import Main from "./components/Main/Main";
 import SideBarFilter from "./components/SideBarFilter/SideBarFilter";
 import dataFlights from "./store/flights.json";
 import { Flights } from "./types/index";
-import { sortFlights, filterFlights } from "./helpers/sortFlights";
+import { filterFlights } from "./helpers/sortFlights";
 function App() {
   const [flights, setFlights] = useState<Flights[]>([]);
   const [sortPrice, setSortPrice] = useState("");
   const [filterTransfer, setFilterTransfer] = useState("");
-  sortFlights(flights, sortPrice);
-  filterFlights(flights, filterTransfer);
+  const [filterAirline, setFilterAirline] = useState("");
+  const [filterPrice, setFilterPrice] = useState(0);
+
   useEffect(() => {
     const data = dataFlights;
-    console.log(data);
     const newDataFlights: Flights[] = data.result.flights.map((item: any) => {
       return {
+        airline: item.flight.carrier.caption,
         transfer: {
-          where: item.flight.legs[1].segments.length,
+          forth: item.flight.legs[0].segments.length,
           back: item.flight.legs[1].segments.length,
         },
-
         priceSinglePassengerTotal: {
           amount: Math.round(
             Number(
@@ -33,30 +33,15 @@ function App() {
             item.flight.price.passengerPrices[0].singlePassengerTotal
               .currencyCode,
         },
-        duration: {
-          where: item.flight.legs[0].duration,
+        flightDuration: {
+          forth: item.flight.legs[0].duration,
           back: item.flight.legs[1].duration,
           totalTime:
             item.flight.legs[0].duration + item.flight.legs[1].duration,
         },
-        where: {
-          arrival: {
-            caption:
-              item.flight.legs[0].segments.length > 1
-                ? item.flight.legs[0].segments[1].airline.caption
-                : item.flight.legs[0].segments[0].airline.caption,
-            arrivalAirPort: {
-              uid: item.flight.legs[0].segments[0].arrivalAirport.uid,
-              caption: item.flight.legs[0].segments[0].arrivalAirport.caption,
-            },
-            arrivalCity: {
-              uid: item.flight.legs[0].segments[0].arrivalCity.uid,
-              caption: item.flight.legs[0].segments[0].arrivalCity.caption,
-            },
-            arrivalDate: item.flight.legs[0].segments[0].arrivalDate,
-          },
-          departure: {
-            caption:
+        forth: {
+          departureInfo: {
+            airline:
               item.flight.legs[0].segments.length > 1
                 ? item.flight.legs[0].segments[1].airline.caption
                 : item.flight.legs[0].segments[0].airline.caption,
@@ -68,19 +53,56 @@ function App() {
               uid: item.flight.legs[0].segments[0].departureCity.uid,
               caption: item.flight.legs[0].segments[0].departureCity.caption,
             },
-            departureDate:
+            departureDate: item.flight.legs[0].segments[0].departureDate,
+          },
+          arrivalInfo: {
+            arrivalAirPort: {
+              uid:
+                item.flight.legs[0].segments.length > 1
+                  ? item.flight.legs[0].segments[1].arrivalAirport.uid
+                  : item.flight.legs[0].segments[0].arrivalAirport.uid,
+              caption:
+                item.flight.legs[0].segments.length > 1
+                  ? item.flight.legs[0].segments[1].arrivalAirport.caption
+                  : item.flight.legs[0].segments[0].arrivalAirport.caption,
+            },
+            arrivalCity: {
+              uid:
+                item.flight.legs[0].segments.length > 1
+                  ? item.flight.legs[0].segments[1].arrivalCity?.uid
+                  : item.flight.legs[0].segments[0].arrivalCity?.uid,
+              caption:
+                item.flight.legs[0].segments.length > 1
+                  ? item.flight.legs[0].segments[1].arrivalCity?.caption
+                  : item.flight.legs[0].segments[0].arrivalCity?.caption,
+            },
+            arrivalDate:
               item.flight.legs[0].segments.length > 1
-                ? item.flight.legs[0].segments[1].departureDate
-                : item.flight.legs[0].segments[0].departureDate,
+                ? item.flight.legs[0].segments[1].arrivalDate
+                : item.flight.legs[0].segments[0].arrivalDate,
           },
         },
         // back
         back: {
-          arrival: {
-            caption:
+          departureInfo: {
+            airline:
               item.flight.legs[1].segments.length > 1
                 ? item.flight.legs[1].segments[1].airline.caption
                 : item.flight.legs[1].segments[0].airline.caption,
+
+            departureAirport: {
+              uid: item.flight.legs[1].segments[0].departureAirport.uid,
+              caption: item.flight.legs[1].segments[0].departureAirport.caption,
+            },
+            departureCity: {
+              uid: item.flight.legs[1].segments[0].departureCity?.uid,
+              caption: item.flight.legs[1].segments[0].departureCity?.caption,
+            },
+            //
+            departureDate: item.flight.legs[1].segments[0].departureDate,
+          },
+
+          arrivalInfo: {
             arrivalAirPort: {
               uid:
                 item.flight.legs[1].segments.length > 1
@@ -106,48 +128,24 @@ function App() {
                 ? item.flight.legs[1].segments[1].arrivalDate
                 : item.flight.legs[1].segments[0].arrivalDate,
           },
-          departure: {
-            caption:
-              item.flight.legs[1].segments.length > 1
-                ? item.flight.legs[1].segments[1].airline.caption
-                : item.flight.legs[1].segments[0].airline.caption,
-            departureAirport: {
-              uid:
-                item.flight.legs[1].segments.length > 1
-                  ? item.flight.legs[1].segments[1].departureAirport.uid
-                  : item.flight.legs[1].segments[0].departureAirport.uid,
-              caption:
-                item.flight.legs[1].segments.length > 1
-                  ? item.flight.legs[1].segments[1].departureAirport.caption
-                  : item.flight.legs[1].segments[0].departureAirport.caption,
-            },
-            departureCity: {
-              uid:
-                item.flight.legs[1].segments.length > 1
-                  ? item.flight.legs[1].segments[1].departureCity.uid
-                  : item.flight.legs[1].segments[0].departureCity.uid,
-              caption:
-                item.flight.legs[1].segments.length > 1
-                  ? item.flight.legs[1].segments[1].departureCity.caption
-                  : item.flight.legs[1].segments[0].departureCity.caption,
-            },
-            departureDate:
-              item.flight.legs[1].segments.length > 1
-                ? item.flight.legs[1].segments[1].departureDate
-                : item.flight.legs[1].segments[0].departureDate,
-          },
         },
       };
     });
-    setFlights(newDataFlights);
+    setFlights(
+      filterFlights(newDataFlights, filterTransfer, sortPrice, filterAirline)
+    );
     console.log(data);
-  }, []);
+    console.log(filterPrice);
+  }, [filterTransfer, sortPrice, filterAirline, filterPrice]);
+
   console.log(flights);
   return (
     <div className="main-wrapper">
       <SideBarFilter
         sortPrice={setSortPrice}
         setFilterTransfer={setFilterTransfer}
+        setFilterAirline={setFilterAirline}
+        setFilterPrice={setFilterPrice}
       />
       <Main flights={flights} />
     </div>

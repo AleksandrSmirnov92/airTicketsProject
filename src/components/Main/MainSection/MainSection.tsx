@@ -25,23 +25,23 @@ const Section: React.FC<SectionProps> = ({ flights }) => {
             </div>
             <div className={style["section-content"]}>
               <SectionCard
-                arrivalFlag={true}
-                durationTime={item.duration.where}
-                whereArrive={item.where.arrival}
-                whereDeparture={item.where.departure}
-                backArrive={item.back.arrival}
-                backDeparture={item.back.departure}
+                forthOrBack={true}
                 transfer={item.transfer}
+                flightDuration={item.flightDuration.forth}
+                forthDeparture={item.forth.departureInfo}
+                forthArrive={item.forth.arrivalInfo}
+                backDeparture={item.back.departureInfo}
+                backArrive={item.back.arrivalInfo}
               />
               <div className={style["section-content__separator"]}></div>
               <SectionCard
-                arrivalFlag={false}
-                whereArrive={item.where.arrival}
-                whereDeparture={item.where.departure}
-                backArrive={item.back.arrival}
-                backDeparture={item.back.departure}
-                durationTime={item.duration.back}
+                forthOrBack={false}
                 transfer={item.transfer}
+                flightDuration={item.flightDuration.back}
+                forthDeparture={item.forth.departureInfo}
+                forthArrive={item.forth.arrivalInfo}
+                backDeparture={item.back.departureInfo}
+                backArrive={item.back.arrivalInfo}
               />
             </div>
             <button className={style["section-btn"]}>
