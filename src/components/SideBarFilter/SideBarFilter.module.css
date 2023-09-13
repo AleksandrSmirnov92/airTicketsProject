@@ -2,8 +2,12 @@
   width: 25%;
   background-color: #d1d5db;
 }
-.sidebar-content {
-  display: block;
+.sidebar-content_active {
+  margin-top: 2em;
+  padding-bottom: 2em;
+  background-color: white;
+}
+.sidebar-content_inactive {
   margin-top: 2em;
   padding-bottom: 2em;
   background-color: white;
@@ -43,13 +47,18 @@
 @media (max-width: 640px) {
   .sidebar-container {
     display: flex;
-    justify-content: end;
+    flex-direction: column;
     width: 100%;
   }
-  .sidebar-content {
+  .sidebar-content_inactive {
     display: none;
   }
+  .sidebar-content_active {
+    margin-top: 0;
+    display: block;
+  }
   .sidebar-filter-wrapper {
+    text-align: end;
     display: block;
   }
 }

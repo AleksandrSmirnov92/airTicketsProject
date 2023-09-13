@@ -1,11 +1,13 @@
 import { Flights } from "../types/index";
 const sortFlights = (flights: Flights[], sortPrice: string) => {
   if (sortPrice === "PriceDecreasing") {
-    return flights.sort(
-      (a: Flights, b: Flights): number =>
-        Number(a.priceSinglePassengerTotal.amount) -
-        Number(b.priceSinglePassengerTotal.amount)
-    );
+    return flights
+      .sort(
+        (a: Flights, b: Flights): number =>
+          Number(a.priceSinglePassengerTotal.amount) -
+          Number(b.priceSinglePassengerTotal.amount)
+      )
+      .reverse();
   }
   if (sortPrice === "TravelTime") {
     return flights.sort(
@@ -13,20 +15,31 @@ const sortFlights = (flights: Flights[], sortPrice: string) => {
         a.flightDuration.totalTime - b.flightDuration.totalTime
     );
   }
-  return flights.sort(
-    (a: Flights, b: Flights) =>
-      Number(b.priceSinglePassengerTotal.amount) -
-      Number(a.priceSinglePassengerTotal.amount)
-  );
+  return flights
+    .sort(
+      (a: Flights, b: Flights) =>
+        Number(b.priceSinglePassengerTotal.amount) -
+        Number(a.priceSinglePassengerTotal.amount)
+    )
+    .reverse();
 };
 export const filterFlights = (
   flights: Flights[],
   filterTransfer: string,
   sortPrice: string,
-  filterAirline: string
+  filterAirline: string,
+  minPrice: number,
+  maxPrice: number
 ) => {
   let results = sortFlights(flights, sortPrice);
-
+  if (minPrice !== 0 || maxPrice !== 200000) {
+    console.log("nen");
+    results = flights.filter(
+      (item) =>
+        item.priceSinglePassengerTotal.amount >= minPrice &&
+        item.priceSinglePassengerTotal.amount <= maxPrice
+    );
+  }
   if (filterTransfer !== "none") {
     if (filterTransfer === "first") {
       const result = flights.filter(

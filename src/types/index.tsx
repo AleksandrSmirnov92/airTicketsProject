@@ -2,7 +2,7 @@ export interface Data {}
 export interface Flights {
   airline: string;
   priceSinglePassengerTotal: {
-    amount: string;
+    amount: number;
     currency: string;
     currencyCode: string;
   };

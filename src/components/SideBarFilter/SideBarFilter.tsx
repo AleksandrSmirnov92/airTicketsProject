@@ -5,14 +5,17 @@ interface SideBarProps {
   sortPrice: React.Dispatch<React.SetStateAction<string>>;
   setFilterTransfer: React.Dispatch<React.SetStateAction<string>>;
   setFilterAirline: React.Dispatch<React.SetStateAction<string>>;
-  setFilterPrice: React.Dispatch<React.SetStateAction<number>>;
+  setMinPrice: React.Dispatch<React.SetStateAction<number>>;
+  setMaxPrice: React.Dispatch<React.SetStateAction<number>>;
 }
 const SideBarFilter: React.FC<SideBarProps> = ({
   sortPrice,
   setFilterTransfer,
   setFilterAirline,
-  setFilterPrice,
+  setMinPrice,
+  setMaxPrice,
 }) => {
+  const [toggleBtn, setToggleBtn] = useState(false);
   const [firstFilter, setFirstFilter] = useState(true);
   const [secondFilter, setSecondFilter] = useState(true);
   const [firstAirline, setFirstAirline] = useState(true);
@@ -58,19 +61,39 @@ const SideBarFilter: React.FC<SideBarProps> = ({
 
   useEffect(() => {
     const handlePriceFilter = () => {
-      const result = Number(firstNumber) + Number(secondNumber);
-      if (result !== 0) {
-        setFilterPrice(result);
+      const first = Number(firstNumber);
+      const second = Number(secondNumber);
+      if (firstNumber === "") {
+        setMinPrice(0);
+      }
+      if (secondNumber === "") {
+        setMaxPrice(200000);
+      }
+      if (first !== 0) {
+        setMinPrice(first);
+      }
+      if (second !== 0) {
+        setMaxPrice(second);
       }
     };
+
     handlePriceFilter();
-  }, [firstNumber, secondNumber]);
+  }, [firstNumber, secondNumber, setMaxPrice, setMinPrice]);
+
   return (
     <div className={style["sidebar-container"]}>
       <div className={style["sidebar-filter-wrapper"]}>
-        <BsFilterRight className={style["sidebar-filter"]} />
+        <button onClick={() => setToggleBtn(!toggleBtn)}>
+          <BsFilterRight className={style["sidebar-filter"]} />
+        </button>
       </div>
-      <div className={style["sidebar-content"]}>
+      <div
+        className={
+          toggleBtn
+            ? `${style["sidebar-content_active"]}`
+            : `${style["sidebar-content_inactive"]}`
+        }
+      >
         <div className={style["sidebar-content__section"]}>
           <h2>Сортировать</h2>
           <div className={style["section-card"]}>
@@ -135,10 +158,14 @@ const SideBarFilter: React.FC<SideBarProps> = ({
               type="number"
               value={firstNumber}
               min={0}
-              max={"200000"}
+              max={200000}
               placeholder={"0"}
               className={style["section-card__form"]}
-              onChange={(e) => setFirstNumber(e.target.value)}
+              onChange={(e) =>
+                setFirstNumber((prev) =>
+                  Number(prev) > 200001 ? "" : e.target.value
+                )
+              }
             />
           </div>
           <div className={style["section-card"]}>
@@ -147,10 +174,14 @@ const SideBarFilter: React.FC<SideBarProps> = ({
               type="number"
               className={style["section-card__form"]}
               value={secondNumber}
-              placeholder={"10000"}
+              placeholder={"200000"}
               max={200000}
               min={0}
-              onChange={(e) => setSecondNumber(e.target.value)}
+              onChange={(e) =>
+                setSecondNumber((prev) =>
+                  Number(prev) > 200001 ? "" : e.target.value
+                )
+              }
             />
           </div>
         </div>

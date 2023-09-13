@@ -1,13 +1,19 @@
 import style from "./MainSection.module.css";
 import SectionCard from "./CardSection/SectionCard";
 import { Flights } from "../../../types/index";
+import { useState } from "react";
 interface SectionProps {
   flights: Flights[];
 }
 const Section: React.FC<SectionProps> = ({ flights }) => {
+  const [visibleItems, setVisibleItems] = useState(2);
+  const data = flights;
+  const handleVisibleElements = () => {
+    setVisibleItems((prev) => prev + 2);
+  };
   return (
     <div className={style["section-container"]}>
-      {flights.map((item: Flights, index) => {
+      {data.slice(0, visibleItems).map((item: Flights, index) => {
         return (
           <div key={index}>
             <div className={style["section-header"]}>
@@ -44,12 +50,23 @@ const Section: React.FC<SectionProps> = ({ flights }) => {
                 backArrive={item.back.arrivalInfo}
               />
             </div>
-            <button className={style["section-btn"]}>
+            <button
+              onClick={() => alert("Эта функция еще не доступна")}
+              className={style["section-btn"]}
+            >
               <span>ВЫБРАТЬ</span>
             </button>
           </div>
         );
       })}
+      <div className={style["btn-wrapper"]}>
+        <button
+          className={style["show-more-btn"]}
+          onClick={handleVisibleElements}
+        >
+          <span>Показать еще</span>
+        </button>
+      </div>
     </div>
   );
 };

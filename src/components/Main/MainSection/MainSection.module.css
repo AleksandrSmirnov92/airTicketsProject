@@ -45,3 +45,22 @@
   width: 100%;
   border-bottom: 0.2em solid #0284c7;
 }
+.btn-wrapper {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+.show-more-btn {
+  outline: 1px solid black;
+  width: 30%;
+  background-color: #e2e8f0;
+  padding: 0.5em 2em;
+  margin-bottom: 2em;
+}
+.show-more-btn:hover {
+  opacity: 0.8;
+}
+.show-more-btn > span {
+  font-size: 1.3rem;
+  font-weight: 400;
+}

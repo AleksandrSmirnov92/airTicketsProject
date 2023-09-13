@@ -10,7 +10,8 @@ function App() {
   const [sortPrice, setSortPrice] = useState("");
   const [filterTransfer, setFilterTransfer] = useState("");
   const [filterAirline, setFilterAirline] = useState("");
-  const [filterPrice, setFilterPrice] = useState(0);
+  const [minPrice, setMinPrice] = useState(0);
+  const [maxPrice, setMaxPrice] = useState(200000);
 
   useEffect(() => {
     const data = dataFlights;
@@ -132,20 +133,25 @@ function App() {
       };
     });
     setFlights(
-      filterFlights(newDataFlights, filterTransfer, sortPrice, filterAirline)
+      filterFlights(
+        newDataFlights,
+        filterTransfer,
+        sortPrice,
+        filterAirline,
+        minPrice,
+        maxPrice
+      )
     );
-    console.log(data);
-    console.log(filterPrice);
-  }, [filterTransfer, sortPrice, filterAirline, filterPrice]);
+  }, [filterTransfer, sortPrice, filterAirline, minPrice, maxPrice]);
 
-  console.log(flights);
   return (
     <div className="main-wrapper">
       <SideBarFilter
         sortPrice={setSortPrice}
         setFilterTransfer={setFilterTransfer}
         setFilterAirline={setFilterAirline}
-        setFilterPrice={setFilterPrice}
+        setMinPrice={setMinPrice}
+        setMaxPrice={setMaxPrice}
       />
       <Main flights={flights} />
     </div>
