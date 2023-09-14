@@ -6,6 +6,7 @@ import dataFlights from "./store/flights.json";
 import { Flights } from "./types/index";
 import { filterFlights } from "./helpers/sortFlights";
 import { getData } from "./helpers/getData";
+
 function App() {
   const [flights, setFlights] = useState<Flights[]>([]);
   const [sortPrice, setSortPrice] = useState("");
@@ -51,6 +52,7 @@ function App() {
         setMinPrice={setMinPrice}
         setMaxPrice={setMaxPrice}
       />
+
       <Main flights={flights} />
     </div>
   );

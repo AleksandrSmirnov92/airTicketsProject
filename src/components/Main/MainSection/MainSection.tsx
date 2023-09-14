@@ -57,13 +57,18 @@ const Section: React.FC<SectionP> = ({ flights }) => {
           </div>
         );
       })}
+
       <div className={style["btn-wrapper"]}>
-        <button
-          className={style["show-more-btn"]}
-          onClick={handleVisibleElements}
-        >
-          <span>Показать еще</span>
-        </button>
+        {data.length > 2 ? (
+          <button
+            className={style["show-more-btn"]}
+            onClick={handleVisibleElements}
+          >
+            <span>Показать еще</span>
+          </button>
+        ) : (
+          <span>Ничего не найдено</span>
+        )}
       </div>
     </div>
   );
