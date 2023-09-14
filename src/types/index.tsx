@@ -46,6 +46,8 @@ export interface SideBarProps {
   setMaxPrice: React.Dispatch<React.SetStateAction<number>>;
   setFirstAirlines: React.Dispatch<React.SetStateAction<boolean>>;
   setSecondAirlines: React.Dispatch<React.SetStateAction<boolean>>;
+  toggleBtn: boolean;
+  setToggleBtn: React.Dispatch<React.SetStateAction<boolean>>;
 }
 export interface SectionP {
   flights: Flights[];

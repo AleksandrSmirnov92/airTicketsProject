@@ -34,8 +34,11 @@
 .section-card input {
   cursor: pointer;
 }
-.section-card span {
+.section-card label {
   color: #64748b;
+}
+.section-card label:hover {
+  opacity: 0.8;
 }
 .section-card__form {
   width: 90%;

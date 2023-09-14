@@ -1,6 +1,7 @@
 .main-wrapper {
   display: flex;
   height: 100vh;
+  font-family: Helvetica;
 }
 @media (max-width: 1051px) {
   .main-wrapper {

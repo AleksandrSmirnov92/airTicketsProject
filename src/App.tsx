@@ -8,6 +8,7 @@ import { filterFlights } from "./helpers/sortFlights";
 import { getData } from "./helpers/getData";
 
 function App() {
+  const [toggleBtn, setToggleBtn] = useState(false);
   const [flights, setFlights] = useState<Flights[]>([]);
   const [sortPrice, setSortPrice] = useState("");
   const [oneTransferFilter, setOneTransferFilter] = useState(false);
@@ -51,9 +52,11 @@ function App() {
         setSecondAirlines={setSecondAirlines}
         setMinPrice={setMinPrice}
         setMaxPrice={setMaxPrice}
+        toggleBtn={toggleBtn}
+        setToggleBtn={setToggleBtn}
       />
 
-      <Main flights={flights} />
+      <Main flights={flights} setToggleBtn={setToggleBtn} />
     </div>
   );
 }

@@ -10,8 +10,10 @@ const SideBarFilter: React.FC<SideBarProps> = ({
   setFirstAirlines,
   setOneTransferFilter,
   setTwoTransferFilter,
+  toggleBtn,
+  setToggleBtn,
 }) => {
-  const [toggleBtn, setToggleBtn] = useState(false);
+  // const [toggleBtn, setToggleBtn] = useState(false);
   const [firstFilter, setFirstFilter] = useState(true);
   const [secondFilter, setSecondFilter] = useState(true);
   const [firstAirline, setFirstAirline] = useState(true);
@@ -106,8 +108,9 @@ const SideBarFilter: React.FC<SideBarProps> = ({
               onChange={(e) => {
                 sortPrice(e.target.value);
               }}
+              id="PriceIncrease"
             />
-            <span> - По возростанию цены</span>
+            <label htmlFor="PriceIncrease"> - По возростанию цены</label>
           </div>
           <div className={style["section-card"]}>
             <input
@@ -117,8 +120,9 @@ const SideBarFilter: React.FC<SideBarProps> = ({
               onChange={(e) => {
                 sortPrice(e.target.value);
               }}
+              id="PriceDecreasing"
             />
-            <span> - По убыванию цены</span>
+            <label htmlFor="PriceDecreasing"> - По убыванию цены</label>
           </div>
           <div className={style["section-card"]}>
             <input
@@ -128,8 +132,9 @@ const SideBarFilter: React.FC<SideBarProps> = ({
               onChange={(e) => {
                 sortPrice(e.target.value);
               }}
+              id="TravelTime"
             />
-            <span> - По времени пути</span>
+            <label htmlFor="TravelTime"> - По времени пути</label>
           </div>
         </div>
         <div className={style["sidebar-content__section"]}>
@@ -139,16 +144,18 @@ const SideBarFilter: React.FC<SideBarProps> = ({
               type="checkbox"
               value={`${firstFilter}`}
               onChange={() => handleChangeTransferFilter("first")}
+              id="oneTransfer"
             />
-            <span> - Одна пересадка</span>
+            <label htmlFor="oneTransfer"> - Одна пересадка</label>
           </div>
           <div className={style["section-card"]}>
             <input
               type="checkbox"
               value={`${secondFilter}`}
               onChange={() => handleChangeTransferFilter("second")}
+              id="twoTransfer"
             />
-            <span> - Две пересадки</span>
+            <label htmlFor="twoTransfer"> - Две пересадки</label>
           </div>
         </div>
         <div className={style["sidebar-content__section"]}>
@@ -193,16 +200,18 @@ const SideBarFilter: React.FC<SideBarProps> = ({
               type="checkbox"
               value={`${firstAirline}`}
               onChange={() => handleChangeAirlineFilter("firstAirline")}
+              id="lot"
             />
-            <span> - LOT Publich Airlines от 21049 р.</span>
+            <label htmlFor="lot"> - LOT Publich Airlines от 21049 р.</label>
           </div>
           <div className={style["section-card"]}>
             <input
               type="checkbox"
               value={`${secondAirline}`}
               onChange={() => handleChangeAirlineFilter("secondAirline")}
+              id="rus"
             />
-            <span> - Аэрофлот рос... от 31733 р. </span>
+            <label htmlFor="rus"> - Аэрофлот рос... от 31733 р. </label>
           </div>
         </div>
       </div>
