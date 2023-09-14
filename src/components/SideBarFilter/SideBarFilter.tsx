@@ -1,19 +1,15 @@
 import style from "./SideBarFilter.module.css";
 import { BsFilterRight } from "react-icons/bs";
-import { useEffect, useState } from "react";
-interface SideBarProps {
-  sortPrice: React.Dispatch<React.SetStateAction<string>>;
-  setFilterTransfer: React.Dispatch<React.SetStateAction<string>>;
-  setFilterAirline: React.Dispatch<React.SetStateAction<string>>;
-  setMinPrice: React.Dispatch<React.SetStateAction<number>>;
-  setMaxPrice: React.Dispatch<React.SetStateAction<number>>;
-}
+import { useEffect, useState, useCallback } from "react";
+import { SideBarProps } from "../../types";
 const SideBarFilter: React.FC<SideBarProps> = ({
   sortPrice,
-  setFilterTransfer,
-  setFilterAirline,
   setMinPrice,
   setMaxPrice,
+  setSecondAirlines,
+  setFirstAirlines,
+  setOneTransferFilter,
+  setTwoTransferFilter,
 }) => {
   const [toggleBtn, setToggleBtn] = useState(false);
   const [firstFilter, setFirstFilter] = useState(true);
@@ -22,43 +18,48 @@ const SideBarFilter: React.FC<SideBarProps> = ({
   const [secondAirline, setSecondAirline] = useState(true);
   const [firstNumber, setFirstNumber] = useState("");
   const [secondNumber, setSecondNumber] = useState("");
-  const handleChangeTransferFilter = (data: string) => {
-    if (data === "first") {
-      if (firstFilter === true) {
-        setFilterTransfer("first");
-      } else {
-        setFilterTransfer("none");
+  const handleChangeTransferFilter = useCallback(
+    (data: string) => {
+      if (data === "first") {
+        if (firstFilter === true) {
+          setOneTransferFilter(true);
+        } else {
+          setOneTransferFilter(false);
+        }
+        setFirstFilter(!firstFilter);
       }
-      setFirstFilter(!firstFilter);
-    }
-    if (data === "second") {
-      if (secondFilter === true) {
-        setFilterTransfer("second");
-      } else {
-        setFilterTransfer("none");
+      if (data === "second") {
+        if (secondFilter === true) {
+          setTwoTransferFilter(true);
+        } else {
+          setTwoTransferFilter(false);
+        }
+        setSecondFilter(!secondFilter);
       }
-      setSecondFilter(!secondFilter);
-    }
-  };
-  const handleChangeAirlineFilter = (data: string) => {
-    if (data === "firstAirline") {
-      if (firstAirline === true) {
-        setFilterAirline("firstAirline");
-      } else {
-        setFilterAirline("none");
+    },
+    [firstFilter, setOneTransferFilter, secondFilter, setTwoTransferFilter]
+  );
+  const handleChangeAirlineFilter = useCallback(
+    (data: string) => {
+      if (data === "firstAirline") {
+        if (firstAirline === true) {
+          setFirstAirlines(true);
+        } else {
+          setFirstAirlines(false);
+        }
+        setFirstAirline(!firstAirline);
       }
-      setFirstAirline(!firstAirline);
-    }
-    if (data === "secondAirline") {
-      if (secondAirline === true) {
-        setFilterAirline("secondAirline");
-      } else {
-        setFilterAirline("none");
+      if (data === "secondAirline") {
+        if (secondAirline === true) {
+          setSecondAirlines(true);
+        } else {
+          setSecondAirlines(false);
+        }
+        setSecondAirline(!secondAirline);
       }
-      setSecondAirline(!secondAirline);
-    }
-  };
-
+    },
+    [firstAirline, secondAirline, setFirstAirlines, setSecondAirlines]
+  );
   useEffect(() => {
     const handlePriceFilter = () => {
       const first = Number(firstNumber);

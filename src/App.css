@@ -2,8 +2,19 @@
   display: flex;
   height: 100vh;
 }
+@media (max-width: 1051px) {
+  .main-wrapper {
+    min-width: 1051px;
+  }
+}
 @media (max-width: 640px) {
   .main-wrapper {
+    position: relative;
     flex-direction: column;
+  }
+}
+@media (max-width: 540px) {
+  .main-wrapper {
+    min-width: 391px;
   }
 }

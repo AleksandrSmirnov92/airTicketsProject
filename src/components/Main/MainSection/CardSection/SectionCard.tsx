@@ -2,34 +2,7 @@ import style from "./SectionCard.module.css";
 import { HiOutlineArrowNarrowRight } from "react-icons/hi";
 import { BiTimeFive } from "react-icons/bi";
 import { minutesToHours, formattedDate } from "../../../../helpers/handleDate";
-interface SectionProps {
-  flightDuration: number;
-  forthOrBack: boolean;
-  forthDeparture: {
-    airline: string;
-    departureAirport: { uid: string; caption: string };
-    departureCity: { uid: string; caption: string };
-    departureDate: string;
-  };
-  forthArrive: {
-    arrivalAirPort: { uid: string; caption: string };
-    arrivalCity: { uid: string; caption: string };
-    arrivalDate: string;
-  };
-  backDeparture: {
-    airline: string;
-    departureAirport: { uid: string; caption: string };
-    departureCity: { uid: string; caption: string };
-    departureDate: string;
-  };
-  backArrive: {
-    arrivalAirPort: { uid: string; caption: string };
-    arrivalCity: { uid: string; caption: string };
-    arrivalDate: string;
-  };
-
-  transfer: { forth: number; back: number };
-}
+import { SectionProps } from "../../../../types";
 const SectionCard: React.FC<SectionProps> = ({
   flightDuration,
   forthArrive,
@@ -48,30 +21,38 @@ const SectionCard: React.FC<SectionProps> = ({
 
   return (
     <div className={style["card-container"]}>
-      <div className={style["card"]}>
-        <span className={style["card-text"]}>
-          {forthOrBack
-            ? `${forthDeparture.departureCity.caption}, ${forthDeparture.departureAirport.caption}`
-            : `${backDeparture.departureCity.caption}, ${backDeparture.departureAirport.caption}`}
-          <span className={style["card-subtext"]}>
-            (
+      <div className={style["card-segment-one"]}>
+        <div className={style["card-segment-one__element-one"]}>
+          <span className={style["element-one__text"]}>
             {forthOrBack
-              ? forthDeparture.departureAirport.uid
-              : forthDeparture.departureAirport.uid}
-            )
-            <HiOutlineArrowNarrowRight className={style["card-text__arrow"]} />
+              ? `${forthDeparture.departureCity.caption}, ${forthDeparture.departureAirport.caption}`
+              : `${backDeparture.departureCity.caption}, ${backDeparture.departureAirport.caption}`}
+            <span>
+              (
+              {forthOrBack
+                ? forthDeparture.departureAirport.uid
+                : backDeparture.departureAirport.uid}
+              )
+              <HiOutlineArrowNarrowRight
+                className={style["element-one__arrow"]}
+              />
+            </span>
           </span>
-          {forthOrBack
-            ? `${forthArrive?.arrivalCity.caption}, ${forthArrive.arrivalAirPort.caption}`
-            : `${backArrive.arrivalCity.caption}, ${backArrive.arrivalAirPort.caption}`}
-          <span className={style["card-subtext"]}>
-            (
+        </div>
+        <div className={style["card-segment-one__element-two"]}>
+          <span className={style["element-two__text"]}>
             {forthOrBack
-              ? forthArrive.arrivalAirPort.uid
-              : backArrive.arrivalAirPort.uid}
-            )
+              ? `${forthArrive?.arrivalCity.caption}, ${forthArrive.arrivalAirPort.caption}`
+              : `${backArrive.arrivalCity.caption}, ${backArrive.arrivalAirPort.caption}`}
+            <span>
+              (
+              {forthOrBack
+                ? forthArrive.arrivalAirPort.uid
+                : backArrive.arrivalAirPort.uid}
+              )
+            </span>
           </span>
-        </span>
+        </div>
       </div>
       <div className={style["card-segment-two"]}>
         <div className={style["card-l-segment"]}>

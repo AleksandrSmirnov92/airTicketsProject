@@ -1,11 +1,9 @@
 import style from "./MainSection.module.css";
 import SectionCard from "./CardSection/SectionCard";
-import { Flights } from "../../../types/index";
+import { SectionP, Flights } from "../../../types/index";
 import { useState } from "react";
-interface SectionProps {
-  flights: Flights[];
-}
-const Section: React.FC<SectionProps> = ({ flights }) => {
+
+const Section: React.FC<SectionP> = ({ flights }) => {
   const [visibleItems, setVisibleItems] = useState(2);
   const data = flights;
   const handleVisibleElements = () => {

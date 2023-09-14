@@ -51,7 +51,7 @@
   justify-content: center;
 }
 .show-more-btn {
-  outline: 1px solid black;
+  border: 1px solid black;
   width: 30%;
   background-color: #e2e8f0;
   padding: 0.5em 2em;
@@ -63,4 +63,14 @@
 .show-more-btn > span {
   font-size: 1.3rem;
   font-weight: 400;
+}
+@media (max-width: 641px) {
+  .section-container {
+    margin-top: 3.6em;
+  }
+}
+@media (max-width: 470px) {
+  .show-more-btn {
+    width: 50%;
+  }
 }
