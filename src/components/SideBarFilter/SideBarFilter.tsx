@@ -170,7 +170,7 @@ const SideBarFilter: React.FC<SideBarProps> = ({
               className={style["section-card__form"]}
               onChange={(e) =>
                 setFirstNumber((prev) =>
-                  Number(prev) > 200001 &&
+                  Number(prev) > 200001 ||
                   /^[0-9]*$/.test(e.target.value) !== true
                     ? ""
                     : e.target.value
@@ -189,7 +189,7 @@ const SideBarFilter: React.FC<SideBarProps> = ({
               min={0}
               onChange={(e) =>
                 setSecondNumber((prev) =>
-                  Number(prev) > 200001 &&
+                  Number(prev) > 200001 ||
                   /^[0-9]*$/.test(e.target.value) !== true
                     ? ""
                     : e.target.value
