@@ -9,7 +9,7 @@ git clone https://github.com/AleksandrSmirnov92/airTicketsProject.git
 Run these commands
 ```
 npm i
-npm run build
+npm run dev
 ---
 Open [http://localhost:5173](http://localhost:5173) with your browser to see the result.
 ```
