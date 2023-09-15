@@ -37,13 +37,7 @@ export const filterFlights = (
   secondAirline: boolean
 ) => {
   let results = sortFlights(flights, sortPrice);
-  if (minPrice !== 0 || maxPrice !== 200000) {
-    results = flights.filter(
-      (item) =>
-        item.priceSinglePassengerTotal.amount >= minPrice &&
-        item.priceSinglePassengerTotal.amount <= maxPrice
-    );
-  }
+
   if (oneTransferFilter || twoTransferFilter) {
     if (oneTransferFilter && twoTransferFilter) {
       const result = flights.filter(
@@ -63,6 +57,13 @@ export const filterFlights = (
       );
       results = result;
     } else return results;
+  }
+  if (minPrice !== 0 || maxPrice !== 200000) {
+    results = flights.filter(
+      (item) =>
+        item.priceSinglePassengerTotal.amount >= minPrice &&
+        item.priceSinglePassengerTotal.amount <= maxPrice
+    );
   }
   if (firstAirline || secondAirline) {
     if (firstAirline && secondAirline) {
