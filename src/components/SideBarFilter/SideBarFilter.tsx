@@ -178,7 +178,7 @@ const SideBarFilter: React.FC<SideBarProps> = ({
           <div className={style["section-card"]}>
             <span>До</span>
             <input
-              type="number"
+              type="text"
               className={style["section-card__form"]}
               value={secondNumber}
               placeholder={"200000"}
