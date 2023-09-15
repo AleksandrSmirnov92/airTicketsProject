@@ -162,10 +162,8 @@ const SideBarFilter: React.FC<SideBarProps> = ({
           <div className={style["section-card"]}>
             <span>От</span>
             <input
-              type="number"
+              type="text"
               value={firstNumber}
-              min={0}
-              max={200000}
               placeholder={"0"}
               className={style["section-card__form"]}
               onChange={(e) =>
@@ -182,8 +180,6 @@ const SideBarFilter: React.FC<SideBarProps> = ({
               className={style["section-card__form"]}
               value={secondNumber}
               placeholder={"200000"}
-              max={200000}
-              min={0}
               onChange={(e) =>
                 setSecondNumber((prev) =>
                   Number(prev) > 200001 ? "" : e.target.value.replace(/\D/g, "")
